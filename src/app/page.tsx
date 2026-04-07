@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import FooterEmail from "./components/FooterEmail";
 
 const services = [
@@ -54,10 +55,10 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-zinc-100 dark:border-zinc-900" aria-label="Main navigation">
         <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
-          <a href="/" className="flex items-center gap-3" aria-label="noteware.dev home">
+          <Link href="/" className="flex items-center gap-3" aria-label="noteware.dev home">
             <Image src="/logo-pixel.svg" alt="noteware.dev logo" width={40} height={40} className="rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5" style={{ imageRendering: "pixelated" }} />
             <span className="text-lg font-bold tracking-tight">noteware.dev</span>
-          </a>
+          </Link>
           <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest">
             <a href="#work" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">Work</a>
             <a href="#services" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">Services</a>

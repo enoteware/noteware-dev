@@ -1,13 +1,8 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-brand-gold: #D4AF37;
-  --color-brand-primary: #00D4AA;
-  --color-zinc-950: #09090b;
-}
-
-:root {
-  --background: #ffffff;
+@layer base {
   --foreground: #09090b;
 }
 
