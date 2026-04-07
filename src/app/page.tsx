@@ -81,7 +81,7 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="relative group overflow-hidden rounded-[2.5rem] bg-zinc-200 dark:bg-zinc-900 aspect-[16/9] md:aspect-[21/9] shadow-2xl animate-in opacity-0 delay-200">
+            <div className="relative group overflow-hidden rounded-[2.5rem] bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 aspect-[16/9] md:aspect-[21/9] shadow-2xl shadow-black/10 dark:shadow-black/40 animate-in opacity-0 delay-200">
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity"></div>
               
               <div className="absolute inset-0 flex items-center justify-center p-12 transition-transform duration-700 group-hover:scale-105">
@@ -100,8 +100,9 @@ export default function Home() {
               </div>
 
               <div className="absolute top-12 right-12 z-20">
-                <a href="https://naturalcatchtuna.com" target="_blank" className="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                <a href="https://naturalcatchtuna.com" target="_blank" className="flex items-center gap-2 px-5 py-3 bg-[var(--color-brand-primary)] text-black rounded-full font-bold text-xs uppercase tracking-widest hover:scale-105 transition-transform shadow-xl shadow-[var(--color-brand-primary)]/25">
+                  View Project
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
                 </a>
               </div>
             </div>
