@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 8 8" style="image-rendering: pixelated; shape-rendering: crispEdges;">
+  <rect width="8" height="8" rx="1.5" fill="#09090b"/>
+  <!-- Stylized pixel 'n' -->
+  <rect x="2" y="3" width="1" height="4" fill="white"/>
+  <rect x="3" y="2" width="2" height="1" fill="white"/>
+  <rect x="5" y="3" width="1" height="4" fill="white"/>
+</svg>

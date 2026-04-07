@@ -1,3 +1,4 @@
+import Image from "next/image";
 import FooterEmail from "./components/FooterEmail";
 
 const services = [
@@ -54,9 +55,7 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-zinc-100 dark:border-zinc-900" aria-label="Main navigation">
         <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
           <a href="/" className="flex items-center gap-3" aria-label="Noteware home">
-            <div className="w-10 h-10 bg-zinc-950 dark:bg-white rounded-xl flex items-center justify-center shadow-lg shadow-black/20 dark:shadow-white/5 border border-white/10">
-              <span className="text-white dark:text-black font-black text-xl italic tracking-tighter drop-shadow-md" aria-hidden="true">n</span>
-            </div>
+            <Image src="/logo-pixel.svg" alt="Noteware logo" width={40} height={40} className="rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5" style={{ imageRendering: "pixelated" }} />
             <span className="text-lg font-bold tracking-tight uppercase">noteware</span>
           </a>
           <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest">
@@ -266,9 +265,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-12 mb-20">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-zinc-950 dark:bg-white rounded-xl flex items-center justify-center shadow-lg shadow-black/20 dark:shadow-white/5 border border-white/10">
-                  <span className="text-white dark:text-black font-black text-sm italic drop-shadow-sm" aria-hidden="true">n</span>
-                </div>
+                <Image src="/logo-pixel.svg" alt="Noteware logo" width={40} height={40} className="rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5" style={{ imageRendering: "pixelated" }} />
                 <span className="text-sm font-bold tracking-tight uppercase">noteware</span>
               </div>
               <p className="text-zinc-500 max-w-sm font-medium">
