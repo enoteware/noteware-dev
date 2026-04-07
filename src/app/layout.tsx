@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Noteware Digital Solutions | AI-Native Dev Studio",
+  title: "noteware.dev | AI-Native Dev Studio",
   description: "High-end product engineering and AI-native digital solutions for forward-thinking founders.",
 };
 

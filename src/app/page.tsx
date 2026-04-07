@@ -54,9 +54,9 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-zinc-100 dark:border-zinc-900" aria-label="Main navigation">
         <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
-          <a href="/" className="flex items-center gap-3" aria-label="Noteware home">
-            <Image src="/logo-pixel.svg" alt="Noteware logo" width={40} height={40} className="rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5" style={{ imageRendering: "pixelated" }} />
-            <span className="text-lg font-bold tracking-tight uppercase">noteware</span>
+          <a href="/" className="flex items-center gap-3" aria-label="noteware.dev home">
+            <Image src="/logo-pixel.svg" alt="noteware.dev logo" width={40} height={40} className="rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5" style={{ imageRendering: "pixelated" }} />
+            <span className="text-lg font-bold tracking-tight">noteware.dev</span>
           </a>
           <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest">
             <a href="#work" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">Work</a>
@@ -215,7 +215,7 @@ export default function Home() {
         <section id="about" className="max-w-7xl mx-auto px-6 py-40 border-t border-zinc-100 dark:border-zinc-900" aria-labelledby="about-heading">
           <div className="grid lg:grid-cols-2 gap-32 items-center">
             <div className="animate-in opacity-0">
-              <h2 id="about-heading" className="sr-only">About Noteware</h2>
+              <h2 id="about-heading" className="sr-only">About noteware.dev</h2>
               <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-10 leading-[1.1]">Built for speed, <br /><span className="text-zinc-400">scaled with intelligence.</span></h3>
               <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-12 font-medium">
                 We don&apos;t just write code. We build integrated systems that run your business. From brand foundations to automated operations, we&apos;re your technical and strategic partners.
@@ -245,7 +245,7 @@ export default function Home() {
               <div className="bg-white dark:bg-zinc-950 rounded-[2.5rem] p-12 md:p-16 border border-zinc-100 dark:border-zinc-900 shadow-2xl shadow-black/5">
                 <svg className="w-12 h-12 text-zinc-200 dark:text-zinc-800 mb-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9125 16 16.0171 16H19.0171C19.5694 16 20.0171 15.5523 20.0171 15V9C20.0171 8.44772 19.5694 8 19.0171 8H15.0171C14.4648 8 14.0171 7.55228 14.0171 7V4H21.0171V15C21.0171 16.1046 20.1216 17 19.0171 17H16.0171V21H14.0171ZM3.01709 21L3.01709 18C3.01709 16.8954 3.91252 16 5.01709 16H8.01709C8.56937 16 9.01709 15.5523 9.01709 15V9C9.01709 8.44772 8.56937 8 8.01709 8H4.01709C3.46481 8 3.01709 7.55228 3.01709 7V4H10.0171V15C10.0171 16.1046 9.12157 17 8.01709 17H5.01709V21H3.01709Z"/></svg>
                 <blockquote className="text-2xl md:text-3xl font-medium leading-[1.4] mb-12 text-zinc-800 dark:text-zinc-200 tracking-tight">
-                  &ldquo;Noteware isn&apos;t just a dev shop. They&apos;re part of the team, building the tools that actually drive our growth.&rdquo;
+                  &ldquo;noteware.dev isn&apos;t just a dev shop. They&apos;re part of the team, building the tools that actually drive our growth.&rdquo;
                 </blockquote>
                 <div className="flex items-center gap-5">
                   <div className="w-14 h-14 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center font-black text-xl italic" aria-hidden="true">NC</div>
@@ -265,8 +265,8 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-12 mb-20">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <Image src="/logo-pixel.svg" alt="Noteware logo" width={40} height={40} className="rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5" style={{ imageRendering: "pixelated" }} />
-                <span className="text-sm font-bold tracking-tight uppercase">noteware</span>
+                <Image src="/logo-pixel.svg" alt="noteware.dev logo" width={40} height={40} className="rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5" style={{ imageRendering: "pixelated" }} />
+                <span className="text-sm font-bold tracking-tight">noteware.dev</span>
               </div>
               <p className="text-zinc-500 max-w-sm font-medium">
                 High-end product engineering for forward-thinking founders.
@@ -302,7 +302,7 @@ export default function Home() {
             </nav>
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-12 border-t border-zinc-200/50 dark:border-zinc-800/50">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">&copy; 2026 Noteware Digital Solutions</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">&copy; 2026 noteware.dev</p>
             <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
               Built with AI-Native Craft <span className="w-1 h-1 rounded-full bg-zinc-800" aria-hidden="true"></span> San Diego, CA
             </p>
