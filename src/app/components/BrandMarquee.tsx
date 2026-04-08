@@ -49,7 +49,7 @@ export function BrandMarquee() {
           alt={brand.name}
           width={80}
           height={32}
-          className="object-contain h-7 w-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 dark:invert"
+          className="object-contain h-7 w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 dark:invert dark:opacity-40 dark:hover:opacity-100"
         />
       </div>
     ),

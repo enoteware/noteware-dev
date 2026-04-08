@@ -84,40 +84,42 @@ export function FloatingNav() {
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
         >
-          <span className={`block w-5 h-0.5 bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-[3px]" : ""}`} />
-          <span className={`block w-5 h-0.5 bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 mt-1.5 ${mobileOpen ? "-rotate-45 -translate-y-[3px]" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 ease-out origin-center ${mobileOpen ? "rotate-45 translate-y-[3px]" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 ease-out origin-center mt-1.5 ${mobileOpen ? "-rotate-45 -translate-y-[3px]" : ""}`} />
         </button>
       </div>
 
       {/* Mobile dropdown */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
-          mobileOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+        className={`md:hidden grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+          mobileOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         } bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-zinc-100 dark:border-zinc-900`}
       >
-        <div className="px-6 py-5 flex flex-col gap-4">
-          {navLinks.map((link) => (
+        <div className="overflow-hidden">
+          <div className="px-6 py-6 flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={handleNavClick}
+                className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors py-3 px-2 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900/50"
+              >
+                {link.label}
+              </a>
+            ))}
             <a
-              key={link.href}
-              href={link.href}
+              href="https://style.noteware.dev"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={handleNavClick}
-              className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors py-1"
+              className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors py-3 px-2 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900/50 flex items-center gap-2"
             >
-              {link.label}
+              Design Picker
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3" />
+              </svg>
             </a>
-          ))}
-          <a
-            href="https://style.noteware.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={handleNavClick}
-            className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors py-1 flex items-center gap-2"
-          >
-            Design Picker
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3" />
-            </svg>
-          </a>
+          </div>
         </div>
       </div>
     </nav>

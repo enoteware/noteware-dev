@@ -14,6 +14,7 @@ precision highp float;
 
 uniform float u_time;
 uniform vec2  u_resolution;
+uniform float u_dark;
 
 #define PI 3.141592653589793
 #define LINES 12.0
@@ -28,7 +29,7 @@ float noise(float x) {
   return mix(hash(i), hash(i + 1.0), u);
 }
 
-float line(vec2 uv, float idx) {
+float line(vec2 uv, float idx, float glowStr) {
   float t   = u_time * SPEED + idx * 0.37;
   float freq = 1.8 + idx * 0.2;
   float amp  = 0.06 + 0.04 * sin(idx * 1.3);
@@ -41,9 +42,9 @@ float line(vec2 uv, float idx) {
   float y = (idx / LINES) + wave;
   float dist = abs(uv.y - y);
 
-  // Glow falloff
-  float glow = exp(-dist * 180.0) * 0.9
-             + exp(-dist * 60.0)  * 0.4;
+  // Glow falloff — softer in light mode
+  float glow = exp(-dist * 180.0) * 0.9 * glowStr
+             + exp(-dist * 60.0)  * 0.4 * glowStr;
   return glow;
 }
 
@@ -51,17 +52,21 @@ void main() {
   vec2 uv = gl_FragCoord.xy / u_resolution;
   uv.y = 1.0 - uv.y; // flip Y
 
+  // Glow strength: full in dark, reduced in light
+  float glowStr = mix(0.45, 1.0, u_dark);
+
   // Brand palette: teal → electric blue → emerald → muted violet
-  vec3 col1 = vec3(0.0,  0.831, 0.667); // #00D4AA  brand primary
-  vec3 col2 = vec3(0.12, 0.56,  0.95);  // electric blue
-  vec3 col3 = vec3(0.20, 0.82,  0.60);  // emerald
-  vec3 col4 = vec3(0.38, 0.22,  0.72);  // violet accent
+  // In light mode, shift to softer/brighter pastels
+  vec3 col1 = mix(vec3(0.4, 0.9, 0.8),  vec3(0.0,  0.831, 0.667), u_dark);
+  vec3 col2 = mix(vec3(0.45, 0.7, 0.95), vec3(0.12, 0.56,  0.95),  u_dark);
+  vec3 col3 = mix(vec3(0.5, 0.88, 0.72), vec3(0.20, 0.82,  0.60),  u_dark);
+  vec3 col4 = mix(vec3(0.6, 0.5, 0.85),  vec3(0.38, 0.22,  0.72),  u_dark);
 
   vec3 color = vec3(0.0);
 
   for (float i = 0.0; i < LINES; i++) {
     float n = i / LINES;
-    float glow = line(uv, i + 0.5);
+    float glow = line(uv, i + 0.5, glowStr);
 
     // Mix palette by line index + time drift
     float t    = n + sin(u_time * 0.15 + i * 0.8) * 0.3;
@@ -79,11 +84,13 @@ void main() {
   float v = 1.0 - dot(vig, vig) * 1.8;
   color *= clamp(v, 0.0, 1.0);
 
-  // Dark background bleed
+  // Background bleed — dark mode bleeds to black, light mode stays transparent
   float luminance = dot(color, vec3(0.299, 0.587, 0.114));
   color = mix(vec3(0.0), color, smoothstep(0.0, 0.3, luminance));
 
-  gl_FragColor = vec4(color, 0.7);
+  // Alpha: lower in light mode to keep text readable
+  float alpha = mix(0.35, 0.7, u_dark);
+  gl_FragColor = vec4(color, alpha);
 }
 `;
 
@@ -136,9 +143,10 @@ export function LinesGradientShader({ className = "" }: { className?: string }) 
       gl.STATIC_DRAW
     );
 
-    const posLoc = gl.getAttribLocation(program, "position");
+    const posLoc  = gl.getAttribLocation(program, "position");
     const timeLoc = gl.getUniformLocation(program, "u_time");
     const resLoc  = gl.getUniformLocation(program, "u_resolution");
+    const darkLoc = gl.getUniformLocation(program, "u_dark");
 
     gl.useProgram(program);
     gl.enableVertexAttribArray(posLoc);
@@ -147,6 +155,12 @@ export function LinesGradientShader({ className = "" }: { className?: string }) 
     // Enable alpha blending
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+    // Detect dark mode
+    let isDark = window.matchMedia("(prefers-color-scheme: dark)").matches ? 1.0 : 0.0;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onThemeChange = (e: MediaQueryListEvent) => { isDark = e.matches ? 1.0 : 0.0; };
+    mq.addEventListener("change", onThemeChange);
 
     let raf: number;
     let start = performance.now();
@@ -167,6 +181,7 @@ export function LinesGradientShader({ className = "" }: { className?: string }) 
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform1f(timeLoc, t);
       gl.uniform2f(resLoc, canvas.width, canvas.height);
+      gl.uniform1f(darkLoc, isDark);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       raf = requestAnimationFrame(render);
     };
@@ -176,6 +191,7 @@ export function LinesGradientShader({ className = "" }: { className?: string }) 
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      mq.removeEventListener("change", onThemeChange);
       gl.deleteProgram(program);
       gl.deleteBuffer(buf);
     };
