@@ -1,15 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #34d399; /* Emerald 400 */
+}
 
 @layer base {
-  --foreground: #09090b;
+  :root {
+    --background: #ffffff;
+    --foreground: #09090b;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #fafafa;
+  @layer base {
+    :root {
+      --background: #000000;
+      --foreground: #fafafa;
+    }
   }
 }
 
