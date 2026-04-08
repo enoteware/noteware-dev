@@ -3,8 +3,15 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
+const navLinks = [
+  { href: "#work", label: "Work" },
+  { href: "#services", label: "Services" },
+  { href: "#about", label: "About" },
+];
+
 export function FloatingNav() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -12,6 +19,9 @@ export function FloatingNav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close mobile menu on anchor click
+  const handleNavClick = () => setMobileOpen(false);
 
   return (
     <nav
@@ -46,15 +56,62 @@ export function FloatingNav() {
             noteware.dev
           </span>
         </a>
+
+        {/* Desktop nav */}
         <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest">
-          <a href="#work" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">Work</a>
-          <a href="#services" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">Services</a>
-          <a href="#about" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">About</a>
+          {navLinks.map((link) => (
+            <a key={link.href} href={link.href} className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">
+              {link.label}
+            </a>
+          ))}
           <a
             href="https://style.noteware.dev"
             target="_blank"
             rel="noopener noreferrer"
             className="text-zinc-500 hover:text-black dark:hover:text-white transition-all flex items-center gap-1"
+          >
+            Design Picker
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3" />
+            </svg>
+          </a>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden flex flex-col justify-center items-center w-10 h-10 -mr-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+        >
+          <span className={`block w-5 h-0.5 bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-[3px]" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 mt-1.5 ${mobileOpen ? "-rotate-45 -translate-y-[3px]" : ""}`} />
+        </button>
+      </div>
+
+      {/* Mobile dropdown */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
+          mobileOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+        } bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-zinc-100 dark:border-zinc-900`}
+      >
+        <div className="px-6 py-5 flex flex-col gap-4">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={handleNavClick}
+              className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors py-1"
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="https://style.noteware.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleNavClick}
+            className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors py-1 flex items-center gap-2"
           >
             Design Picker
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
