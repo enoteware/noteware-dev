@@ -5,6 +5,7 @@ import { ProofOfCraft } from "./components/ProofOfCraft";
 import { ScrollReveal } from "./components/ui/ScrollReveal";
 import { CardSpotlight } from "./components/ui/CardSpotlight";
 import { FloatingNav } from "./components/FloatingNav";
+import { BrandMarquee } from "./components/BrandMarquee";
 
 const services = [
   {
@@ -54,6 +55,9 @@ export default function Home() {
       {/* Hero Section */}
       <main className="flex-1 w-full pt-32 overflow-hidden">
         <HeroSection />
+
+        {/* Brand Marquee */}
+        <BrandMarquee />
 
         {/* Featured Case Study: Natural Catch */}
         <section id="work" className="bg-zinc-50 dark:bg-zinc-950 py-40 border-y border-zinc-100 dark:border-zinc-900 overflow-hidden" aria-labelledby="work-heading">
