@@ -2,6 +2,9 @@ import Image from "next/image";
 import FooterEmail from "./components/FooterEmail";
 import { HeroSection } from "./components/HeroSection";
 import { ProofOfCraft } from "./components/ProofOfCraft";
+import { ScrollReveal } from "./components/ui/ScrollReveal";
+import { CardSpotlight } from "./components/ui/CardSpotlight";
+import { FloatingNav } from "./components/FloatingNav";
 
 const services = [
   {
@@ -46,23 +49,7 @@ export default function Home() {
   return (
     <div className="grain-overlay flex flex-col min-h-screen bg-white dark:bg-black font-sans text-zinc-950 dark:text-zinc-50 selection:bg-zinc-200 dark:selection:bg-zinc-800">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-zinc-100 dark:border-zinc-900" aria-label="Main navigation">
-        <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
-          <a href="/" className="flex items-center gap-3" aria-label="noteware.dev home">
-            <Image src="/logo-pixel.svg" alt="noteware.dev logo" width={40} height={40} className="rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5" style={{ imageRendering: "pixelated" }} />
-            <span className="text-lg font-bold tracking-tight">noteware.dev</span>
-          </a>
-          <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest">
-            <a href="#work" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">Work</a>
-            <a href="#services" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">Services</a>
-            <a href="#about" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">About</a>
-            <a href="https://style.noteware.dev" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all flex items-center gap-1">
-              Design Picker
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"/></svg>
-            </a>
-          </div>
-        </div>
-      </nav>
+      <FloatingNav />
 
       {/* Hero Section */}
       <main className="flex-1 w-full pt-32 overflow-hidden">
@@ -71,7 +58,7 @@ export default function Home() {
         {/* Featured Case Study: Natural Catch */}
         <section id="work" className="bg-zinc-50 dark:bg-zinc-950 py-40 border-y border-zinc-100 dark:border-zinc-900 overflow-hidden" aria-labelledby="work-heading">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-col md:flex-row items-baseline justify-between mb-20 gap-8 animate-in opacity-0">
+            <ScrollReveal className="flex flex-col md:flex-row items-baseline justify-between mb-20 gap-8">
               <div className="max-w-xl">
                 <h2 id="work-heading" className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-6">Flagship Showcase</h2>
                 <h3 className="text-5xl md:text-6xl font-bold tracking-tighter mb-8">Natural Catch Seafoods</h3>
@@ -86,9 +73,9 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="relative group overflow-hidden rounded-[2.5rem] bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 aspect-[16/9] md:aspect-[21/9] shadow-2xl shadow-black/10 dark:shadow-black/40 animate-in opacity-0 delay-200">
+            <ScrollReveal delay={200} className="relative group overflow-hidden rounded-[2.5rem] bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 aspect-[16/9] md:aspect-[21/9] shadow-2xl shadow-black/10 dark:shadow-black/40">
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity"></div>
 
               <div className="absolute inset-0 flex items-center justify-center p-12 transition-transform duration-700 group-hover:scale-105">
@@ -112,7 +99,7 @@ export default function Home() {
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
                 </a>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Proof of Craft — Infinite Scroll */}
             <ProofOfCraft />
@@ -121,19 +108,19 @@ export default function Home() {
 
         {/* Services Grid */}
         <section id="services" className="max-w-7xl mx-auto px-6 py-40" aria-labelledby="services-heading">
-          <div className="text-center mb-20 animate-in opacity-0">
+          <ScrollReveal className="text-center mb-20">
             <h2 id="services-heading" className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-6">What We Build</h2>
             <h3 className="text-4xl md:text-5xl font-bold tracking-tighter leading-[1.1]">
               Full-stack capability,<br />
               <span className="text-zinc-400 dark:text-zinc-600">single point of contact.</span>
             </h3>
-          </div>
+          </ScrollReveal>
 
-          <div className="grid md:grid-cols-3 gap-6 animate-in opacity-0 delay-200">
+          <ScrollReveal delay={200} className="grid md:grid-cols-3 gap-6">
             {services.map((service) => (
-              <div
+              <CardSpotlight
                 key={service.category}
-                className="group relative rounded-[2rem] border border-zinc-100 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-950 p-10 transition-all hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/30"
+                className="group rounded-[2rem] border border-zinc-100 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-950 p-10 transition-all hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/30"
               >
                 <div className="mb-8 w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-500 dark:text-zinc-400 group-hover:text-[var(--color-brand-primary)] group-hover:bg-[var(--color-brand-primary)]/10 transition-colors">
                   {service.icon}
@@ -147,15 +134,15 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </CardSpotlight>
             ))}
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* Studio Philosophy */}
         <section id="about" className="max-w-7xl mx-auto px-6 py-40 border-t border-zinc-100 dark:border-zinc-900" aria-labelledby="about-heading">
           <div className="grid lg:grid-cols-2 gap-32 items-center">
-            <div className="animate-in opacity-0">
+            <ScrollReveal>
               <h2 id="about-heading" className="sr-only">About noteware.dev</h2>
               <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-10 leading-[1.1]">Built for speed, <br /><span className="text-zinc-400">scaled with intelligence.</span></h3>
               <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-12 font-medium">
@@ -179,9 +166,9 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="relative animate-in opacity-0 delay-300">
+            <ScrollReveal delay={300} className="relative">
               <div className="absolute -inset-4 bg-gradient-to-tr from-zinc-100 to-white dark:from-zinc-900 dark:to-black rounded-[3rem] -z-10 blur-2xl opacity-50"></div>
               <div className="bg-white dark:bg-zinc-950 rounded-[2.5rem] p-12 md:p-16 border border-zinc-100 dark:border-zinc-900 shadow-2xl shadow-black/5">
                 <svg className="w-12 h-12 text-zinc-200 dark:text-zinc-800 mb-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9125 16 16.0171 16H19.0171C19.5694 16 20.0171 15.5523 20.0171 15V9C20.0171 8.44772 19.5694 8 19.0171 8H15.0171C14.4648 8 14.0171 7.55228 14.0171 7V4H21.0171V15C21.0171 16.1046 20.1216 17 19.0171 17H16.0171V21H14.0171ZM3.01709 21L3.01709 18C3.01709 16.8954 3.91252 16 5.01709 16H8.01709C8.56937 16 9.01709 15.5523 9.01709 15V9C9.01709 8.44772 8.56937 8 8.01709 8H4.01709C3.46481 8 3.01709 7.55228 3.01709 7V4H10.0171V15C10.0171 16.1046 9.12157 17 8.01709 17H5.01709V21H3.01709Z"/></svg>
@@ -196,7 +183,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
       </main>
