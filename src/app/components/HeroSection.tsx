@@ -10,9 +10,9 @@ export function HeroSection() {
     <div className="relative w-full overflow-hidden">
       {/* === FULL-WIDTH WebGL shader background === */}
       <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-        <LinesGradientShader className="absolute inset-0 w-full h-full opacity-30 dark:opacity-70" />
+        <LinesGradientShader className="absolute inset-0 w-full h-full opacity-40 dark:opacity-70" />
         {/* Bottom fade into page */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white dark:to-black" style={{ top: "55%" }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-zinc-50 dark:to-black" style={{ top: "55%" }} />
       </div>
 
       {/* Spotlight */}
@@ -31,7 +31,7 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative max-w-7xl mx-auto px-6 pb-32 pt-8" style={{ zIndex: 2 }}>
         <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200 dark:border-zinc-800 text-[10px] font-bold uppercase tracking-widest mb-10 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-sm animate-in opacity-0">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-300/50 dark:border-emerald-800/50 text-[10px] font-bold uppercase tracking-widest mb-10 bg-white/90 dark:bg-zinc-950/80 backdrop-blur-md shadow-brand-sm animate-in opacity-0">
             <span className="relative flex h-2 w-2" aria-hidden="true">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -61,7 +61,7 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-5 delay-200 opacity-0 animate-in">
             <a
               href="mailto:dev@notewaredigital.com"
-              className="px-8 py-4 sm:px-10 sm:py-5 bg-zinc-950 dark:bg-white text-white dark:text-black rounded-full font-bold text-base sm:text-lg hover:scale-[1.02] active:scale-[0.98] transition-all text-center shadow-xl shadow-black/10 dark:shadow-white/5"
+              className="px-8 py-4 sm:px-10 sm:py-5 bg-gradient-to-br from-zinc-900 to-zinc-950 dark:from-white dark:to-zinc-100 text-white dark:text-black rounded-full font-bold text-base sm:text-lg hover:scale-[1.02] active:scale-[0.98] transition-all text-center shadow-xl shadow-zinc-900/20 dark:shadow-white/10 hover:shadow-brand"
             >
               Start a Project
             </a>
@@ -69,7 +69,7 @@ export function HeroSection() {
               href="https://style.noteware.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 sm:px-10 sm:py-5 border border-zinc-200 dark:border-zinc-800 rounded-full font-bold text-base sm:text-lg hover:bg-zinc-50/80 dark:hover:bg-zinc-900/80 backdrop-blur-sm transition-all text-center"
+              className="px-8 py-4 sm:px-10 sm:py-5 border-2 border-zinc-300 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/50 rounded-full font-bold text-base sm:text-lg hover:bg-emerald-50/80 dark:hover:bg-emerald-950/30 hover:border-emerald-400/50 dark:hover:border-emerald-600/50 backdrop-blur-sm transition-all text-center shadow-lg shadow-black/5 dark:shadow-black/20"
             >
               Explore Styles
             </a>

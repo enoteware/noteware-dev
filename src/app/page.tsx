@@ -48,7 +48,7 @@ const services = [
 
 export default function Home() {
   return (
-    <div className="grain-overlay flex flex-col min-h-screen bg-white dark:bg-black font-sans text-zinc-950 dark:text-zinc-50 selection:bg-zinc-200 dark:selection:bg-zinc-800">
+    <div className="grain-overlay flex flex-col min-h-screen bg-zinc-50 dark:bg-black font-sans text-zinc-950 dark:text-zinc-50 selection:bg-emerald-100 dark:selection:bg-emerald-900/30 bg-mesh-gradient">
       {/* Navigation */}
       <FloatingNav />
 
@@ -60,7 +60,7 @@ export default function Home() {
         <BrandMarquee />
 
         {/* Featured Case Study: Natural Catch */}
-        <section id="work" className="bg-zinc-50 dark:bg-zinc-950 py-20 sm:py-40 border-y border-zinc-100 dark:border-zinc-900 overflow-hidden" aria-labelledby="work-heading">
+        <section id="work" className="bg-white/60 dark:bg-zinc-950/60 backdrop-blur-xl py-20 sm:py-40 border-y border-zinc-200/50 dark:border-zinc-800/50 overflow-hidden" aria-labelledby="work-heading">
           <div className="max-w-7xl mx-auto px-6">
             <ScrollReveal className="flex flex-col md:flex-row items-baseline justify-between mb-12 sm:mb-20 gap-8">
               <div className="max-w-xl">
@@ -72,14 +72,14 @@ export default function Home() {
               </div>
               <div className="flex flex-wrap gap-3">
                 {['Shopify Plus', 'Klaviyo', 'Custom ERP', 'AI Insights'].map((tag) => (
-                  <span key={tag} className="px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-[10px] font-bold uppercase tracking-widest text-zinc-500 bg-white dark:bg-black">
+                  <span key={tag} className="px-4 py-1.5 rounded-full border border-emerald-200/60 dark:border-emerald-800/50 text-[10px] font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-950/30 backdrop-blur-sm shadow-sm">
                     {tag}
                   </span>
                 ))}
               </div>
             </ScrollReveal>
 
-            <ScrollReveal delay={200} className="relative group overflow-hidden rounded-2xl sm:rounded-[2.5rem] bg-zinc-100 dark:bg-white/5 backdrop-blur-xl border border-zinc-200 dark:border-white/10 aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] shadow-2xl shadow-black/10 dark:shadow-black/40">
+            <ScrollReveal delay={200} className="relative group overflow-hidden rounded-2xl sm:rounded-[2.5rem] bg-gradient-to-br from-emerald-50/80 to-cyan-50/80 dark:bg-gradient-to-br dark:from-emerald-950/30 dark:to-cyan-950/30 backdrop-blur-xl border border-emerald-200/50 dark:border-emerald-800/30 aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] shadow-brand-lg hover:shadow-brand transition-all duration-500">
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity"></div>
 
               <div className="absolute inset-0 flex items-center justify-center p-12 transition-transform duration-700 group-hover:scale-105">
@@ -124,9 +124,9 @@ export default function Home() {
             {services.map((service) => (
               <CardSpotlight
                 key={service.category}
-                className="group rounded-2xl sm:rounded-[2rem] border border-zinc-100 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-950 p-7 sm:p-10 transition-all hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/30"
+                className="card-accent-glow group rounded-2xl sm:rounded-[2rem] border border-zinc-200/80 dark:border-zinc-800/60 bg-gradient-to-br from-white/90 to-zinc-50/90 dark:from-zinc-900/50 dark:to-zinc-950/50 backdrop-blur-sm p-7 sm:p-10 transition-all hover:border-emerald-300/50 dark:hover:border-emerald-700/50 hover:shadow-brand dark:hover:shadow-emerald-500/20 hover:scale-[1.02]"
               >
-                <div className="mb-8 w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-500 dark:text-zinc-400 group-hover:text-[var(--color-brand-primary)] group-hover:bg-[var(--color-brand-primary)]/10 transition-colors">
+                <div className="mb-8 w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-100 to-cyan-100 dark:from-emerald-950 dark:to-cyan-950 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-300 group-hover:shadow-brand-sm transition-all duration-300 group-hover:scale-110">
                   {service.icon}
                 </div>
                 <h4 className="text-lg font-bold tracking-tight mb-6">{service.category}</h4>
@@ -144,7 +144,7 @@ export default function Home() {
         </section>
 
         {/* Studio Philosophy */}
-        <section id="about" className="max-w-7xl mx-auto px-6 py-20 sm:py-40 border-t border-zinc-100 dark:border-zinc-900" aria-labelledby="about-heading">
+        <section id="about" className="max-w-7xl mx-auto px-6 py-20 sm:py-40 border-t border-zinc-200/50 dark:border-zinc-800/50" aria-labelledby="about-heading">
           <div className="grid lg:grid-cols-2 gap-16 sm:gap-32 items-center">
             <ScrollReveal>
               <h2 id="about-heading" className="sr-only">About noteware.dev</h2>
@@ -173,14 +173,14 @@ export default function Home() {
             </ScrollReveal>
 
             <ScrollReveal delay={300} className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-tr from-zinc-100 to-white dark:from-zinc-900 dark:to-black rounded-[3rem] -z-10 blur-2xl opacity-50"></div>
-              <div className="bg-white dark:bg-zinc-950 rounded-2xl sm:rounded-[2.5rem] p-8 sm:p-12 md:p-16 border border-zinc-100 dark:border-zinc-900 shadow-2xl shadow-black/5">
-                <svg className="w-12 h-12 text-zinc-200 dark:text-zinc-800 mb-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9125 16 16.0171 16H19.0171C19.5694 16 20.0171 15.5523 20.0171 15V9C20.0171 8.44772 19.5694 8 19.0171 8H15.0171C14.4648 8 14.0171 7.55228 14.0171 7V4H21.0171V15C21.0171 16.1046 20.1216 17 19.0171 17H16.0171V21H14.0171ZM3.01709 21L3.01709 18C3.01709 16.8954 3.91252 16 5.01709 16H8.01709C8.56937 16 9.01709 15.5523 9.01709 15V9C9.01709 8.44772 8.56937 8 8.01709 8H4.01709C3.46481 8 3.01709 7.55228 3.01709 7V4H10.0171V15C10.0171 16.1046 9.12157 17 8.01709 17H5.01709V21H3.01709Z"/></svg>
+              <div className="absolute -inset-4 bg-gradient-to-tr from-emerald-200/40 via-cyan-200/30 to-indigo-200/40 dark:from-emerald-900/40 dark:via-cyan-900/30 dark:to-indigo-900/40 rounded-[3rem] -z-10 blur-3xl opacity-60 dark:opacity-40"></div>
+              <div className="bg-gradient-to-br from-white via-white to-emerald-50/30 dark:from-zinc-900 dark:via-zinc-950 dark:to-emerald-950/20 rounded-2xl sm:rounded-[2.5rem] p-8 sm:p-12 md:p-16 border border-emerald-200/50 dark:border-emerald-900/30 shadow-brand-lg backdrop-blur-sm">
+                <svg className="w-12 h-12 text-emerald-200 dark:text-emerald-900/50 mb-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9125 16 16.0171 16H19.0171C19.5694 16 20.0171 15.5523 20.0171 15V9C20.0171 8.44772 19.5694 8 19.0171 8H15.0171C14.4648 8 14.0171 7.55228 14.0171 7V4H21.0171V15C21.0171 16.1046 20.1216 17 19.0171 17H16.0171V21H14.0171ZM3.01709 21L3.01709 18C3.01709 16.8954 3.91252 16 5.01709 16H8.01709C8.56937 16 9.01709 15.5523 9.01709 15V9C9.01709 8.44772 8.56937 8 8.01709 8H4.01709C3.46481 8 3.01709 7.55228 3.01709 7V4H10.0171V15C10.0171 16.1046 9.12157 17 8.01709 17H5.01709V21H3.01709Z"/></svg>
                 <blockquote className="text-2xl md:text-3xl font-medium leading-[1.4] mb-12 text-zinc-800 dark:text-zinc-200 tracking-tight">
                   &ldquo;noteware.dev isn&apos;t just a dev shop. They&apos;re part of the team, building the tools that actually drive our growth.&rdquo;
                 </blockquote>
                 <div className="flex items-center gap-5">
-                  <div className="w-14 h-14 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center font-black text-xl italic" aria-hidden="true">NC</div>
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-100 to-cyan-100 dark:from-emerald-900 dark:to-cyan-900 flex items-center justify-center font-black text-xl italic text-emerald-700 dark:text-emerald-300 shadow-brand-sm" aria-hidden="true">NC</div>
                   <div>
                     <p className="font-bold text-lg">Natural Catch Team</p>
                     <p className="text-zinc-500 text-sm font-bold uppercase tracking-widest">Long-term Strategic Partner</p>
@@ -192,7 +192,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-zinc-100 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-950 px-6 py-24" role="contentinfo">
+      <footer className="border-t border-zinc-200/50 dark:border-zinc-800/50 bg-gradient-to-b from-white/80 to-zinc-50/80 dark:from-zinc-950/80 dark:to-black/80 backdrop-blur-xl px-6 py-24" role="contentinfo">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-12 mb-20">
             <div>

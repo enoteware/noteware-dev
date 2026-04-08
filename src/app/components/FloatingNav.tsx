@@ -27,8 +27,8 @@ export function FloatingNav() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 dark:bg-black/90 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 shadow-lg shadow-black/5"
-          : "bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-zinc-100 dark:border-zinc-900"
+          ? "bg-white/95 dark:bg-black/90 backdrop-blur-xl border-b border-zinc-200/60 dark:border-zinc-800/60 shadow-lg shadow-emerald-500/5 dark:shadow-black/20"
+          : "bg-white/85 dark:bg-black/80 backdrop-blur-md border-b border-zinc-200/40 dark:border-zinc-900/40"
       }`}
       aria-label="Main navigation"
     >
@@ -60,7 +60,7 @@ export function FloatingNav() {
         {/* Desktop nav */}
         <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">
+            <a key={link.href} href={link.href} className="text-zinc-600 dark:text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all">
               {link.label}
             </a>
           ))}
@@ -68,7 +68,7 @@ export function FloatingNav() {
             href="https://style.noteware.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-500 hover:text-black dark:hover:text-white transition-all flex items-center gap-1"
+            className="text-zinc-600 dark:text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex items-center gap-1"
           >
             Design Picker
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -79,7 +79,7 @@ export function FloatingNav() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col justify-center items-center w-10 h-10 -mr-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+          className="md:hidden flex flex-col justify-center items-center w-10 h-10 -mr-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
@@ -93,7 +93,7 @@ export function FloatingNav() {
       <div
         className={`md:hidden grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
           mobileOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        } bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-zinc-100 dark:border-zinc-900`}
+        } bg-white/98 dark:bg-black/95 backdrop-blur-xl border-t border-zinc-200/60 dark:border-zinc-800/60`}
       >
         <div className="overflow-hidden">
           <div className="px-6 py-6 flex flex-col gap-1">
@@ -102,7 +102,7 @@ export function FloatingNav() {
                 key={link.href}
                 href={link.href}
                 onClick={handleNavClick}
-                className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors py-3 px-2 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900/50"
+                className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-3 px-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
               >
                 {link.label}
               </a>
@@ -112,7 +112,7 @@ export function FloatingNav() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleNavClick}
-              className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors py-3 px-2 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900/50 flex items-center gap-2"
+              className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-3 px-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/30 flex items-center gap-2"
             >
               Design Picker
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
