@@ -1,6 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import FooterEmail from "./components/FooterEmail";
+import { HeroSection } from "./components/HeroSection";
+import { ProofOfCraft } from "./components/ProofOfCraft";
 
 const services = [
   {
@@ -41,24 +42,16 @@ const services = [
   },
 ];
 
-const proofItems = [
-  { metric: "6.7k", label: "Memory Rows" },
-  { metric: "Real-time", label: "ERP Sync" },
-  { metric: "Auto", label: "Triage & Routing" },
-  { metric: "99.9%", label: "Uptime SLA" },
-  { metric: "< 200ms", label: "API Response" },
-];
-
 export default function Home() {
   return (
     <div className="grain-overlay flex flex-col min-h-screen bg-white dark:bg-black font-sans text-zinc-950 dark:text-zinc-50 selection:bg-zinc-200 dark:selection:bg-zinc-800">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-zinc-100 dark:border-zinc-900" aria-label="Main navigation">
         <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
-          <Link href="/" className="flex items-center gap-3" aria-label="noteware.dev home">
+          <a href="/" className="flex items-center gap-3" aria-label="noteware.dev home">
             <Image src="/logo-pixel.svg" alt="noteware.dev logo" width={40} height={40} className="rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5" style={{ imageRendering: "pixelated" }} />
             <span className="text-lg font-bold tracking-tight">noteware.dev</span>
-          </Link>
+          </a>
           <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest">
             <a href="#work" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">Work</a>
             <a href="#services" className="text-zinc-500 hover:text-black dark:hover:text-white transition-all">Services</a>
@@ -73,118 +66,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <main className="flex-1 w-full pt-32 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 pb-32 animate-in opacity-0">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center">
-            <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200 dark:border-zinc-800 text-[10px] font-bold uppercase tracking-widest mb-10 bg-zinc-50 dark:bg-zinc-950">
-                <span className="relative flex h-2 w-2" aria-hidden="true">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                Now Accepting Partners for Q2 2026
-              </div>
-
-              <h1 className="text-6xl md:text-8xl font-bold tracking-tight leading-[0.9] mb-10 selection:text-white selection:bg-black">
-                AI-Native <br />
-                <span className="text-zinc-400 dark:text-zinc-600">Product Craft.</span>
-              </h1>
-
-              <p className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 mb-14 leading-relaxed max-w-2xl font-medium delay-100 opacity-0 animate-in">
-                We partner with founders to build high-stakes digital products. Senior-led design, robust engineering, and deep AI integration.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-5 delay-200 opacity-0 animate-in">
-                <a
-                  href="mailto:dev@notewaredigital.com"
-                  className="px-10 py-5 bg-zinc-950 dark:bg-white text-white dark:text-black rounded-full font-bold text-lg hover:scale-[1.02] active:scale-[0.98] transition-all text-center shadow-xl shadow-black/10 dark:shadow-white/5"
-                >
-                  Start a Project
-                </a>
-                <a
-                  href="https://style.noteware.dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-10 py-5 border border-zinc-200 dark:border-zinc-800 rounded-full font-bold text-lg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all text-center"
-                >
-                  Explore Styles
-                </a>
-              </div>
-            </div>
-
-            {/* Hero Visual */}
-            <div className="relative h-[260px] md:h-[320px] lg:h-[360px] rounded-[2.5rem] border border-zinc-200/70 dark:border-zinc-800/80 bg-gradient-to-br from-zinc-50 via-zinc-100 to-zinc-200 dark:from-zinc-900 dark:via-zinc-950 dark:to-black overflow-hidden shadow-[0_40px_120px_rgba(0,0,0,0.35)]">
-              {/* Grid background */}
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.16),transparent_55%),radial-gradient(circle_at_bottom,_rgba(15,23,42,0.65),transparent_55%)]" />
-              <div className="pointer-events-none absolute inset-px rounded-[2.4rem] border border-white/10 dark:border-white/5 bg-[linear-gradient(to_bottom_right,rgba(255,255,255,0.12),transparent_45%),radial-gradient(circle_at_top_left,rgba(34,197,94,0.18),transparent_55%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.18),transparent_55%)]" />
-
-              {/* Animated orbits */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-[220px] h-[220px] md:w-[260px] md:h-[260px]">
-                  <div className="absolute inset-0 rounded-full border border-white/5 dark:border-white/10" />
-                  <div className="absolute inset-[18%] rounded-full border border-emerald-400/40 dark:border-emerald-300/40 blur-[0.5px]" />
-                  <div className="absolute inset-[34%] rounded-full border border-sky-400/40 dark:border-sky-300/40 blur-[0.5px]" />
-
-                  <div className="absolute inset-[12%] animate-[spin_26s_linear_infinite]">
-                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.9)]" />
-                    <div className="absolute -bottom-2 left-[8%] w-1.5 h-1.5 rounded-full bg-emerald-300/80" />
-                  </div>
-
-                  <div className="absolute inset-[30%] animate-[spin_20s_linear_infinite_reverse]">
-                    <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_14px_rgba(56,189,248,0.9)]" />
-                    <div className="absolute -left-1 top-[16%] w-1.5 h-1.5 rounded-full bg-sky-300/80" />
-                  </div>
-
-                  <div className="absolute inset-[46%] animate-[spin_32s_linear_infinite]">
-                    <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-zinc-100/80 dark:bg-zinc-300/80" />
-                    <div className="absolute -right-1 top-[12%] w-1 h-1 rounded-full bg-zinc-200/80 dark:bg-zinc-400/80" />
-                  </div>
-
-                  <div className="absolute inset-[30%] backdrop-blur-2xl rounded-[2rem] border border-white/20 bg-gradient-to-br from-zinc-950/75 via-zinc-900/75 to-zinc-950/80 shadow-[0_18px_60px_rgba(0,0,0,0.6)]">
-                    <div className="flex h-full flex-col justify-between p-5">
-                      <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.18em] text-zinc-400">
-                        <span className="inline-flex items-center gap-2">
-                          <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                          </span>
-                          Live Signals
-                        </span>
-                        <span>Q2 • 2026</span>
-                      </div>
-
-                      <div className="space-y-2 text-xs text-zinc-300/90">
-                        <div className="flex items-center justify-between gap-3">
-                          <span className="font-medium text-zinc-200">AI Workflows</span>
-                          <span className="text-[10px] font-mono text-emerald-300">active</span>
-                        </div>
-                        <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800">
-                          <div className="h-full w-[76%] animate-[pulse_2.4s_ease-in-out_infinite] rounded-full bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-500" />
-                        </div>
-
-                        <div className="flex items-center justify-between gap-3 pt-1">
-                          <span className="text-zinc-400">Latency</span>
-                          <span className="text-[11px] font-mono text-zinc-200">&lt; 200ms</span>
-                        </div>
-                        <div className="flex items-center justify-between gap-3">
-                          <span className="text-zinc-400">Throughput</span>
-                          <span className="text-[11px] font-mono text-zinc-200">99.9% uptime</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.16em] text-zinc-500">
-                        <span>noteware.dev • control plane</span>
-                        <span className="inline-flex items-center gap-1">
-                          <span className="h-1 w-1 rounded-full bg-emerald-400" />
-                          Stable
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <HeroSection />
 
         {/* Featured Case Study: Natural Catch */}
         <section id="work" className="bg-zinc-50 dark:bg-zinc-950 py-40 border-y border-zinc-100 dark:border-zinc-900 overflow-hidden" aria-labelledby="work-heading">
@@ -232,25 +114,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Proof of Craft */}
-            <div className="mt-16 animate-in opacity-0 delay-300">
-              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-8 text-center">Proof of Craft</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                {proofItems.map((item) => (
-                  <div
-                    key={item.label}
-                    className="group relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-6 text-center hover:border-[var(--color-brand-primary)]/40 transition-colors"
-                  >
-                    <p className="text-2xl sm:text-3xl font-black tracking-tight text-zinc-900 dark:text-zinc-100 mb-1 group-hover:text-[var(--color-brand-primary)] transition-colors">
-                      {item.metric}
-                    </p>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-                      {item.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {/* Proof of Craft — Infinite Scroll */}
+            <ProofOfCraft />
           </div>
         </section>
 
@@ -380,7 +245,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-12 border-t border-zinc-200/50 dark:border-zinc-800/50">
             <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">&copy; 2026 noteware.dev</p>
             <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
-              Built with AI-Native Craft <span className="w-1 h-1 rounded-full bg-zinc-800" aria-hidden="true"></span> San Diego, CA
+              Built with AI-Native Craft <span className="w-1 h-1 rounded-full bg-zinc-800" aria-hidden="true"></span> San Diego, CA <span className="w-1 h-1 rounded-full bg-zinc-800" aria-hidden="true"></span> Animations by Aceternity UI
             </p>
           </div>
         </div>
