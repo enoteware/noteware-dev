@@ -55,18 +55,28 @@ body {
   background-size: 256px 256px;
 }
 
-@layer base {
+* {
+  border-color: #e4e4e7;
+}
+
+@media (prefers-color-scheme: dark) {
   * {
-    @apply border-zinc-200 dark:border-zinc-800;
+    border-color: #27272a;
   }
 }
 
 .glass-card {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-br from-white via-zinc-200 to-zinc-500;
+  background: linear-gradient(to bottom right, #ffffff, #e4e4e7, #71717a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @keyframes slideUpFade {
