@@ -561,6 +561,11 @@
   }
 
   .logo-tile {
+    /* Always a white tile, so its contents use the light tokens in both modes. */
+    --foreground: oklch(0.2178 0 0);
+    --muted-foreground: oklch(0.45 0.005 245.64);
+    --background: oklch(1 0 0);
+    --primary: oklch(0.5578 0.1423 245.64);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -657,5 +662,76 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-pause {
     display: none;
+  }
+}
+
+/* ---- Portfolio slabs: CSS 3D keeps screenshots sharp and the page light. ---- */
+@layer components {
+  .slab-scene {
+    perspective: 1400px;
+    perspective-origin: 50% 40%;
+  }
+  .slab {
+    position: relative;
+    transform-style: preserve-3d;
+  }
+  .slab-static {
+    transform: rotateX(4deg) rotateY(-8deg);
+  }
+  .slab .browser-frame {
+    position: relative;
+    /* Thickness as stacked layers. Real side faces made browsers drop the image. */
+    box-shadow:
+      2px 2px 0 var(--border),
+      4px 4px 0 var(--secondary),
+      6px 6px 0 var(--border),
+      8px 8px 0 var(--secondary),
+      10px 10px 0 var(--border),
+      12px 12px 0 var(--secondary),
+      14px 14px 0 var(--border),
+      0 44px 70px -24px oklch(from var(--foreground) l c h / 0.32);
+  }
+  .slab-logo {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    transform: translateZ(70px);
+  }
+  .slab-logo .logo-tile {
+    height: 64px;
+    padding: 8px 18px;
+    box-shadow: var(--shadow-md);
+  }
+  .slab-logo .logo-tile img {
+    height: 44px;
+    max-width: 150px;
+  }
+
+  @media (max-width: 47.99rem) {
+    .slab-logo {
+      left: 12px;
+      bottom: 12px;
+    }
+    .slab-logo .logo-tile {
+      height: 44px;
+      padding: 6px 10px;
+    }
+    .slab-logo .logo-tile img {
+      height: 30px;
+      max-width: 96px;
+    }
+  }
+
+  /* Stack only when each card fits, so one card never covers another's text. */
+  @media (min-width: 48rem) and (min-height: 720px) {
+    .service-card {
+      position: sticky;
+      top: var(--stack-top);
+    }
+  }
+
+  .headline-page {
+    font-size: clamp(38px, 7.6vw, 112px);
+    line-height: 0.98;
   }
 }

@@ -2,74 +2,121 @@
 
 import Image from "next/image";
 import { useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
-import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import { Logo } from "./Logo";
+import { projects as allProjects, type Project } from "../work";
 
-const projects = [
-  { name: "Natural Catch", kind: "Client", url: "https://naturalcatchtuna.com", host: "naturalcatchtuna.com", img: "/work/naturalcatch.jpg", what: "Shopify theme, brand hub and packaging." },
-  { name: "EHS Analytical Solutions", kind: "Client", url: "https://ehsanalytical.com", host: "ehsanalytical.com", img: "/work/ehs.jpg", what: "WordPress site and training platform." },
-  { name: "IEPA", kind: "Client", url: "https://reg.iepa.com", host: "reg.iepa.com", img: "/work/iepa.jpg", what: "Conference registration, payments and admin." },
-  { name: "Association of California Airports", kind: "Client", url: "https://calairports.org", host: "calairports.org", img: "/work/aca.jpg", what: "WordPress site and Regably setup." },
-  { name: "California Strategies", kind: "Client", url: "https://calstrat.com", host: "calstrat.com", img: "/work/calstrat.jpg", what: "Website tooling." },
-  { name: "Regably", kind: "Our product", url: "https://regably.com", host: "regably.com", img: "/work/regably.jpg", what: "Membership and conference registration for associations." },
-  { name: "Invoi", kind: "Our product", url: "https://app.noteware.dev", host: "app.noteware.dev", img: "/work/invoi.jpg", what: "Our client workspace for projects, tasks and invoices." },
-];
+const QUERY = "(min-width: 768px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)";
+const TILT_QUERY = "(hover: hover) and (prefers-reduced-motion: no-preference)";
 
-const QUERY = "(min-width: 768px) and (prefers-reduced-motion: no-preference)";
-function subscribe(onChange: () => void) {
-  const media = window.matchMedia(QUERY);
-  media.addEventListener("change", onChange);
-  return () => media.removeEventListener("change", onChange);
+function useMedia(query: string) {
+  return useSyncExternalStore(
+    (onChange) => {
+      const media = window.matchMedia(query);
+      media.addEventListener("change", onChange);
+      return () => media.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(query).matches,
+    () => false
+  );
 }
 
-function Project({ project, tilt }: { project: (typeof projects)[number]; tilt: boolean }) {
+/**
+ * A screenshot as a thick angled slab, with the company logo floating in front.
+ * With a track position, it swings to face the visitor as it reaches the center.
+ */
+export function ProjectSlab({
+  project,
+  fill = false,
+  trackX,
+}: {
+  project: Project;
+  fill?: boolean;
+  trackX?: MotionValue<number>;
+}) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const tilt = useMedia(TILT_QUERY);
+  const zero = useMotionValue(0);
   const rx = useMotionValue(0);
   const ry = useMotionValue(0);
-  const rotateX = useSpring(rx, { stiffness: 180, damping: 20 });
-  const rotateY = useSpring(ry, { stiffness: 180, damping: 20 });
+  const hoverX = useSpring(rx, { stiffness: 180, damping: 20 });
+  const hoverY = useSpring(ry, { stiffness: 180, damping: 20 });
+
+  const swing = useTransform(trackX ?? zero, (x) => {
+    if (!trackX || !ref.current) return -8;
+    const center = ref.current.offsetLeft + x + ref.current.offsetWidth / 2;
+    const offset = (center - window.innerWidth / 2) / window.innerWidth;
+    return Math.max(-20, Math.min(20, offset * -30));
+  });
+  const rotateY = useTransform([swing, hoverY], ([a, b]: number[]) => a + b);
+  const rotateX = useTransform(hoverX, (x) => 4 + x);
 
   return (
-    <motion.a
+    <a
+      ref={ref}
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group block shrink-0 ${tilt ? "portfolio-card" : "w-full"}`}
-      style={tilt ? { rotateX, rotateY, transformPerspective: 1200 } : undefined}
+      className={`group slab-scene block shrink-0 ${fill ? "w-full" : "portfolio-card"}`}
       onPointerMove={(e) => {
         if (!tilt || e.pointerType === "touch") return;
         const r = e.currentTarget.getBoundingClientRect();
-        ry.set(((e.clientX - r.left) / r.width - 0.5) * 7);
-        rx.set(-((e.clientY - r.top) / r.height - 0.5) * 7);
+        ry.set(((e.clientX - r.left) / r.width - 0.5) * 10);
+        rx.set(-((e.clientY - r.top) / r.height - 0.5) * 10);
       }}
       onPointerLeave={() => {
         rx.set(0);
         ry.set(0);
       }}
     >
-      <div className="browser-frame">
-        <div className="browser-bar" aria-hidden="true">
-          <span className="browser-dot" />
-          <span className="browser-dot" />
-          <span className="browser-dot" />
-          <span className="ml-2 truncate">{project.host}</span>
+      <motion.div
+        className={`slab ${tilt || trackX ? "" : "slab-static"}`}
+        style={tilt || trackX ? { rotateX, rotateY } : undefined}
+      >
+        <div className="browser-frame">
+          <div className="browser-bar" aria-hidden="true">
+            <span className="browser-dot" />
+            <span className="browser-dot" />
+            <span className="browser-dot" />
+            <span className="ml-2 truncate">{project.host}</span>
+          </div>
+          <div className="relative aspect-[16/10] overflow-hidden">
+            <Image
+              src={project.img}
+              alt={`${project.name} website`}
+              fill
+              sizes="(min-width: 768px) 62vw, 100vw"
+              loading="eager"
+              className="object-cover object-top"
+            />
+          </div>
         </div>
-        <div className="relative aspect-[16/10] overflow-hidden">
-          <Image
-            src={project.img}
-            alt={`${project.name} website`}
-            fill
-            sizes="(min-width: 768px) 62vw, 100vw"
-            className="object-cover object-top transition-transform duration-500 ease-standard group-hover:scale-[1.03]"
-          />
+        <div className="slab-logo" aria-hidden="true">
+          <div className="logo-tile">
+            {project.logo ? (
+              // eslint-disable-next-line @next/next/no-img-element -- local logo files, sized by CSS
+              <img src={project.logo.src} alt="" width={project.logo.w} height={project.logo.h} />
+            ) : (
+              <Logo />
+            )}
+          </div>
         </div>
-      </div>
-      <div className="flex items-start justify-between gap-4 mt-4">
+      </motion.div>
+      <div className="flex items-start justify-between gap-4 mt-6">
         <div>
           <h4 className="text-h2 font-bold tracking-tighter group-hover:text-primary transition-colors">{project.name}</h4>
           <p className="text-muted-foreground mt-1">{project.what}</p>
         </div>
         <span className="chip shrink-0">{project.kind}</span>
       </div>
-    </motion.a>
+    </a>
   );
 }
 
@@ -84,11 +131,11 @@ function Heading() {
 
 function StackedPortfolio() {
   return (
-    <section id="portfolio" className="py-14 border-t" aria-labelledby="portfolio-heading">
+    <section id="portfolio" className="py-14 border-t overflow-x-clip" aria-labelledby="portfolio-heading">
       <Heading />
-      <div className="px-[var(--gutter)] max-w-page mx-auto grid gap-12">
-        {projects.map((project) => (
-          <Project key={project.name} project={project} tilt={false} />
+      <div className="px-[var(--gutter)] max-w-page mx-auto grid gap-14">
+        {allProjects.map((project) => (
+          <ProjectSlab key={project.name} project={project} fill />
         ))}
       </div>
     </section>
@@ -124,8 +171,8 @@ function PinnedPortfolio() {
   const revealFocused = (e: React.FocusEvent<HTMLDivElement>) => {
     const card = e.target as HTMLElement;
     if (!outer.current || !track.current || !card.matches(":focus-visible")) return;
-    const gutter = track.current.children[0] as HTMLElement;
-    const offset = Math.min(Math.max(card.offsetLeft - gutter.offsetLeft, 0), travel);
+    const first = track.current.children[0] as HTMLElement;
+    const offset = Math.min(Math.max(card.offsetLeft - first.offsetLeft, 0), travel);
     window.scrollTo(0, outer.current.offsetTop + offset);
   };
 
@@ -133,9 +180,9 @@ function PinnedPortfolio() {
     <section id="portfolio" ref={outer} className="relative border-t" style={{ height: `calc(100vh + ${travel}px)` }} aria-labelledby="portfolio-heading">
       <div className="sticky top-0 h-screen overflow-clip flex flex-col justify-center pt-16">
         <Heading />
-        <motion.div ref={track} className="flex gap-8 w-max px-[max(var(--gutter),calc((100vw-77.5rem)/2+var(--gutter)))]" style={{ x }} onFocus={revealFocused}>
-          {projects.map((project) => (
-            <Project key={project.name} project={project} tilt />
+        <motion.div ref={track} className="flex gap-16 w-max px-[max(var(--gutter),calc((100vw-77.5rem)/2+var(--gutter)))]" style={{ x }} onFocus={revealFocused}>
+          {allProjects.map((project) => (
+            <ProjectSlab key={project.name} project={project} trackX={x} />
           ))}
         </motion.div>
       </div>
@@ -143,8 +190,8 @@ function PinnedPortfolio() {
   );
 }
 
-/** Pins and scrolls sideways on desktop. Phones and reduced motion get a plain stack. */
+/** Pins and scrolls sideways on tall desktop screens. Everything else gets a plain stack. */
 export function Portfolio() {
-  const pinned = useSyncExternalStore(subscribe, () => window.matchMedia(QUERY).matches, () => false);
+  const pinned = useMedia(QUERY);
   return pinned ? <PinnedPortfolio /> : <StackedPortfolio />;
 }

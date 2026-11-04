@@ -9,6 +9,7 @@ const clients = [
   { key: "ehs", src: "/clients/ehs.svg", name: "EHS Analytical Solutions", w: 300, h: 300 },
   { key: "iepa", src: "/clients/iepa.png", name: "Independent Energy Producers Association", w: 915, h: 267 },
   { key: "aca", src: "/clients/aca.svg", name: "Association of California Airports", w: 300, h: 300 },
+  { key: "propfirms", src: "/clients/propfirms.png", name: "PropFirms", w: 1453, h: 397 },
   { key: "calstrat", src: "/clients/calstrat.svg", name: "California Strategies", w: 586, h: 309, label: "California Strategies" },
 ];
 
@@ -63,7 +64,7 @@ export function BrandMarquee() {
       <div className="max-w-page mx-auto px-[var(--gutter)] mt-12 mb-4 text-center">
         <p className="eyebrow">Built with</p>
       </div>
-      <InfiniteMovingCards items={brandItems} paused={paused} reverse repeat={2} seconds={100} />
+      <InfiniteMovingCards items={brandItems} paused={paused} reverse repeat={3} seconds={150} />
 
       <div className="marquee-toggle mt-6 flex justify-center">
         <button

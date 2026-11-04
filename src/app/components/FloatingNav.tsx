@@ -6,10 +6,12 @@ import { motion, useScroll } from "framer-motion";
 import { Logo } from "./Logo";
 
 const navLinks = [
-  { href: "#work", label: "Work" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#services", label: "Services" },
-  { href: "#about", label: "About" },
+  { href: "/#work", label: "Work" },
+  { href: "/#portfolio", label: "Portfolio" },
+  { href: "/#services", label: "Services" },
+  { href: "/#about", label: "About" },
+  { href: "/associations", label: "Associations" },
+  { href: "/business-owners", label: "Business owners" },
 ];
 
 const externalIcon = (
@@ -42,11 +44,11 @@ export function FloatingNav() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-5">
+        <div className="hidden lg:flex items-center gap-5">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="link-quiet">
+            <Link key={link.href} href={link.href} className="link-quiet">
               {link.label}
-            </a>
+            </Link>
           ))}
           <a
             href="https://style.noteware.dev"
@@ -63,7 +65,7 @@ export function FloatingNav() {
           href="https://app.noteware.dev"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn btn-primary hidden md:inline-flex ml-auto"
+          className="btn btn-primary hidden lg:inline-flex ml-auto"
         >
           Client login
         </a>
@@ -72,7 +74,7 @@ export function FloatingNav() {
         <button
           ref={toggleRef}
           type="button"
-          className="md:hidden ml-auto flex flex-col justify-center items-center w-11 h-11 -mr-2.5 rounded-md hover:bg-secondary transition-colors cursor-pointer"
+          className="lg:hidden ml-auto flex flex-col justify-center items-center w-11 h-11 -mr-2.5 rounded-md hover:bg-secondary transition-colors cursor-pointer"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
@@ -84,7 +86,7 @@ export function FloatingNav() {
       </div>
 
       <motion.div
-        className="absolute left-0 right-0 bottom-[-1px] h-0.5 bg-primary origin-left"
+        className="absolute left-0 right-0 top-[calc(4rem-1px)] h-0.5 bg-primary origin-left"
         style={{ scaleX: scrollYProgress }}
         aria-hidden="true"
       />
@@ -93,21 +95,21 @@ export function FloatingNav() {
       <div
         id="mobile-menu"
         inert={!mobileOpen}
-        className={`md:hidden grid bg-background transition-[grid-template-rows,opacity] duration-200 ease-standard ${
+        className={`lg:hidden grid bg-background transition-[grid-template-rows,opacity] duration-200 ease-standard ${
           mobileOpen ? "grid-rows-[1fr] opacity-100 border-t" : "grid-rows-[0fr] opacity-0"
         }`}
       >
         <div className="overflow-hidden">
           <div className="px-[var(--gutter)] py-3 flex flex-col">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={handleNavClick}
                 className="link-quiet flex items-center min-h-11 -mx-2 px-2 rounded-md hover:bg-secondary"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <a
               href="https://style.noteware.dev"

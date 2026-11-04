@@ -1,10 +1,10 @@
-import FooterEmail from "./components/FooterEmail";
+import Link from "next/link";
 import { HeroSection } from "./components/HeroSection";
 import { ProofOfCraft } from "./components/ProofOfCraft";
 import { ScrollReveal } from "./components/ui/ScrollReveal";
 import { FloatingNav } from "./components/FloatingNav";
 import { BrandMarquee } from "./components/BrandMarquee";
-import { Logo } from "./components/Logo";
+import { SiteFooter } from "./components/SiteFooter";
 import { Portfolio } from "./components/Portfolio";
 import { ScrollWords } from "./components/ScrollWords";
 import { VelocityBand } from "./components/VelocityBand";
@@ -48,10 +48,6 @@ const services = [
   },
 ];
 
-const externalIcon = (
-  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"/></svg>
-);
-
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -68,6 +64,28 @@ export default function Home() {
         <BrandMarquee />
 
         <VelocityBand />
+
+        {/* Who we help */}
+        <section className="max-w-page mx-auto w-full px-[var(--gutter)] py-14 sm:py-20" aria-labelledby="audience-heading">
+          <ScrollReveal className="mb-10">
+            <h2 id="audience-heading" className="eyebrow">Who we help</h2>
+          </ScrollReveal>
+          <ScrollReveal className="grid md:grid-cols-2 gap-4">
+            {[
+              { href: "/associations", lead: "For", accent: "associations.", desc: "Conference registration, dues, member directories, board records and websites." },
+              { href: "/business-owners", lead: "For", accent: "business owners.", desc: "Brand, websites, Shopify stores, email marketing and automation." },
+            ].map((item) => (
+              <Link key={item.href} href={item.href} className="cta-band group block !p-8 sm:!p-12 transition-transform duration-200 ease-standard motion-safe:hover:-translate-y-0.5">
+                <span className="section-title block">{item.lead} <em>{item.accent}</em></span>
+                <span className="sub block mt-4">{item.desc}</span>
+                <span className="btn btn-primary mt-6">
+                  See how we help
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                </span>
+              </Link>
+            ))}
+          </ScrollReveal>
+        </section>
 
         {/* Featured Case Study: Natural Catch */}
         <section id="work" className="py-14 sm:py-20" aria-labelledby="work-heading">
@@ -120,8 +138,8 @@ export default function Home() {
               {services.map((service, i) => (
                 <div
                   key={service.category}
-                  className="card sticky grid md:grid-cols-[auto_1fr_1fr] gap-6 md:gap-12 items-start p-6 sm:p-10"
-                  style={{ top: `calc(5.5rem + ${i * 1.5}rem)` }}
+                  className="card service-card grid md:grid-cols-[auto_1fr_1fr] gap-6 md:gap-12 items-start p-6 sm:p-10"
+                  style={{ "--stack-top": `calc(5.5rem + ${i * 1.5}rem)` } as React.CSSProperties}
                 >
                   <div className="service-num" aria-hidden="true">0{i + 1}</div>
                   <div>
@@ -190,51 +208,7 @@ export default function Home() {
         </a>
       </main>
 
-      <footer className="border-t bg-sidebar pt-12 sm:pt-14 overflow-hidden" role="contentinfo">
-        <div className="max-w-page mx-auto px-[var(--gutter)]">
-          <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 mb-10">
-            <div className="col-span-2 md:col-span-1">
-              <div className="mb-3">
-                <Logo />
-              </div>
-              <p className="text-muted-foreground max-w-sm">
-                High-end product engineering for forward-thinking founders.
-              </p>
-            </div>
-            <nav className="contents" aria-label="Footer navigation">
-              <div className="space-y-3">
-                <p className="footer-head">Studio</p>
-                <ul className="space-y-2">
-                  <li><a href="#work" className="link-quiet">Work</a></li>
-                  <li><a href="#services" className="link-quiet">Services</a></li>
-                  <li><a href="#about" className="link-quiet">About</a></li>
-                  <li><a href="https://style.noteware.dev" target="_blank" rel="noopener noreferrer" className="link-quiet flex items-center gap-1.5">Style Hub {externalIcon}</a></li>
-                </ul>
-              </div>
-              <div className="space-y-3">
-                <p className="footer-head">Connect</p>
-                <ul className="space-y-2">
-                  <li><FooterEmail /></li>
-                  <li><a href="https://github.com/enoteware" target="_blank" rel="noopener noreferrer" className="link-quiet">GitHub</a></li>
-                </ul>
-              </div>
-              <div className="space-y-3">
-                <p className="footer-head">Platform</p>
-                <a href="https://app.noteware.dev" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
-                  Client login
-                </a>
-              </div>
-            </nav>
-          </div>
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pt-6 border-t text-caption text-muted-foreground">
-            <p>&copy; 2026 noteware.dev</p>
-            <p className="flex items-center gap-2 flex-wrap">
-              Built with AI-Native Craft <span aria-hidden="true">&middot;</span> San Diego, CA <span aria-hidden="true">&middot;</span> Animations by Aceternity UI
-            </p>
-          </div>
-        </div>
-        <div className="giant-wordmark text-center mt-12 -mb-[0.09em] select-none overflow-hidden" aria-hidden="true">noteware.dev</div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

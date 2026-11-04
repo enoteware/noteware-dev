@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { usePrefersReducedMotion } from "./useMotionPreference";
 
 /** Reads a CSS color token as sRGB, whatever color space it was written in. */
 function tokenRgb(name: string): [number, number, number] {
@@ -27,7 +28,8 @@ export function HeroField({
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(paused);
-  const [, setFailed] = useState(false);
+  // A change of preference rebuilds the scene in the matching mode.
+  const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
     pausedRef.current = paused;
@@ -44,7 +46,6 @@ export function HeroField({
       const { RoundedBoxGeometry } = await import("three/examples/jsm/geometries/RoundedBoxGeometry.js");
       if (disposed) return;
 
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const small = window.innerWidth < 768;
       const COLS = small ? 26 : 48;
       const ROWS = small ? 18 : 28;
@@ -54,7 +55,6 @@ export function HeroField({
       try {
         renderer = new THREE.WebGLRenderer({ antialias: !small, alpha: true, powerPreference: "high-performance" });
       } catch {
-        setFailed(true);
         return;
       }
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1.5 : 2));
@@ -206,15 +206,18 @@ export function HeroField({
         material.dispose();
         mesh.dispose();
         renderer.dispose();
+        renderer.forceContextLoss();
         renderer.domElement.remove();
       };
-    })();
+    })().catch(() => {
+      // The 3D code failed to load. The CSS grid stays as the hero background.
+    });
 
     return () => {
       disposed = true;
       teardown();
     };
-  }, [onReady]);
+  }, [onReady, reduced]);
 
   return <div ref={hostRef} className="hero-canvas" aria-hidden="true" />;
 }

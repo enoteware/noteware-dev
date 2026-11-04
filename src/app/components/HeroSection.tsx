@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
 import { motion, MotionConfig, useScroll, useTransform } from "framer-motion";
 import { HeroField } from "./HeroField";
@@ -28,7 +29,21 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
   );
 }
 
-export function HeroSection() {
+export function HeroSection({
+  chip = "Now accepting partners for Q2 2026",
+  lead = "AI-Native",
+  accent = "Product Craft.",
+  sub = "We partner with founders to build high-stakes digital products. Senior-led design, robust engineering, and deep AI integration.",
+  mailto = "mailto:dev@notewaredigital.com",
+  compact = false,
+}: {
+  chip?: string;
+  lead?: string;
+  accent?: string;
+  sub?: string;
+  mailto?: string;
+  compact?: boolean;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -73,12 +88,12 @@ export function HeroSection() {
             transition={{ duration: 0.6, ease: EASE_OUT }}
           >
             <span className="chip-dot" aria-hidden="true" />
-            Now accepting partners for Q2 2026
+            {chip}
           </motion.div>
 
-          <h1 className="headline mt-[22px] mb-6">
-            <Line delay={0.1}>AI-Native</Line>
-            <Line delay={0.22}><em>Product Craft.</em></Line>
+          <h1 className={`headline mt-[22px] mb-6 ${compact ? "headline-page" : ""}`}>
+            <Line delay={0.1}>{lead}</Line>
+            <Line delay={0.22}><em>{accent}</em></Line>
           </h1>
 
           <motion.div
@@ -87,23 +102,26 @@ export function HeroSection() {
             transition={{ duration: 0.7, delay: 0.5, ease: EASE_OUT }}
           >
             <p className="sub max-w-[620px] mx-auto mb-7">
-              We partner with founders to build high-stakes digital products.
-              Senior-led design, robust engineering, and deep AI integration.
+              {sub}
             </p>
 
             <div className="inline-flex flex-wrap justify-center items-center gap-2.5">
-              <a href="mailto:dev@notewaredigital.com" className="btn btn-primary">
+              <a href={mailto} className="btn btn-primary">
                 Start a project
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
               </a>
-              <a
-                href="https://style.noteware.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost bg-background"
-              >
-                Explore styles
-              </a>
+              {compact ? (
+                <Link href="/#portfolio" className="btn btn-ghost bg-background">See our work</Link>
+              ) : (
+                <a
+                  href="https://style.noteware.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-ghost bg-background"
+                >
+                  Explore styles
+                </a>
+              )}
             </div>
           </motion.div>
         </motion.div>
