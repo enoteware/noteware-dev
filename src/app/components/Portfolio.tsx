@@ -93,7 +93,7 @@ export function ProjectSlab({
               alt={`${project.name} website`}
               fill
               sizes="(min-width: 768px) 62vw, 100vw"
-              loading="eager"
+              loading={trackX ? "eager" : "lazy"}
               className="object-cover object-top"
             />
           </div>

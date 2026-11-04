@@ -30,7 +30,7 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
 }
 
 export function HeroSection({
-  chip = "Now accepting partners for Q2 2026",
+  chip = "Now accepting partners",
   lead = "AI-Native",
   accent = "Product Craft.",
   sub = "We partner with founders to build high-stakes digital products. Senior-led design, robust engineering, and deep AI integration.",

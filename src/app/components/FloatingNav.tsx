@@ -100,7 +100,7 @@ export function FloatingNav() {
         }`}
       >
         <div className="overflow-hidden">
-          <div className="px-[var(--gutter)] py-3 flex flex-col">
+          <div className="px-[var(--gutter)] py-3 flex flex-col max-h-[calc(100svh-4rem)] overflow-y-auto">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
