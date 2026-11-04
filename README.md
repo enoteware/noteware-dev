@@ -18,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The visual design follows the noteware.dev design system (`nds-theme-flat`) that Invoi uses. Its spec is `.design-system/design.md` in `enoteware/invoi`. The tokens are ported into `src/app/globals.css`, and Inter and JetBrains Mono are self-hosted from `src/app/fonts/` through `next/font/local`.
 
 ## Learn More
 

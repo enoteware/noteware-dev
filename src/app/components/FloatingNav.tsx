@@ -1,66 +1,50 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { motion, useScroll } from "framer-motion";
+import { Logo } from "./Logo";
 
 const navLinks = [
   { href: "#work", label: "Work" },
+  { href: "#portfolio", label: "Portfolio" },
   { href: "#services", label: "Services" },
   { href: "#about", label: "About" },
 ];
 
+const externalIcon = (
+  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3" />
+  </svg>
+);
+
 export function FloatingNav() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Close mobile menu on anchor click
   const handleNavClick = () => setMobileOpen(false);
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 dark:bg-black/90 backdrop-blur-xl border-b border-zinc-200/60 dark:border-zinc-800/60 shadow-lg shadow-emerald-500/5 dark:shadow-black/20"
-          : "bg-white/85 dark:bg-black/80 backdrop-blur-md border-b border-zinc-200/40 dark:border-zinc-900/40"
-      }`}
+      className="site-nav fixed top-0 left-0 right-0 z-50 border-b"
       aria-label="Main navigation"
+      onKeyDown={(e) => {
+        if (e.key === "Escape" && mobileOpen) {
+          setMobileOpen(false);
+          toggleRef.current?.focus();
+        }
+      }}
     >
-      <div
-        className={`flex items-center justify-between px-6 max-w-7xl mx-auto w-full transition-all duration-300 ${
-          scrolled ? "py-2" : "py-4"
-        }`}
-      >
-        <a href="/" className="flex items-center gap-3" aria-label="noteware.dev home">
-          <Image
-            src="/logo-pixel.svg"
-            alt="noteware.dev logo"
-            width={40}
-            height={40}
-            className={`rounded-xl shadow-lg shadow-black/20 dark:shadow-white/5 transition-all duration-300 ${
-              scrolled ? "scale-85" : ""
-            }`}
-            style={{ imageRendering: "pixelated" }}
-          />
-          <span
-            className={`font-bold tracking-tight transition-all duration-300 ${
-              scrolled ? "text-base" : "text-lg"
-            }`}
-          >
-            noteware.dev
-          </span>
-        </a>
+      <div className="flex items-center gap-8 h-16 px-[var(--gutter)] max-w-page mx-auto w-full">
+        <Link href="/" className="flex items-center" aria-label="noteware.dev home">
+          <Logo />
+        </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest">
+        <div className="hidden md:flex items-center gap-5">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="text-zinc-600 dark:text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all">
+            <a key={link.href} href={link.href} className="link-quiet">
               {link.label}
             </a>
           ))}
@@ -68,41 +52,59 @@ export function FloatingNav() {
             href="https://style.noteware.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-600 dark:text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex items-center gap-1"
+            className="link-quiet flex items-center gap-1.5"
           >
             Design Picker
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3" />
-            </svg>
+            {externalIcon}
           </a>
         </div>
 
+        <a
+          href="https://app.noteware.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-primary hidden md:inline-flex ml-auto"
+        >
+          Client login
+        </a>
+
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col justify-center items-center w-10 h-10 -mr-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
+          ref={toggleRef}
+          type="button"
+          className="md:hidden ml-auto flex flex-col justify-center items-center w-11 h-11 -mr-2.5 rounded-md hover:bg-secondary transition-colors cursor-pointer"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
         >
-          <span className={`block w-5 h-0.5 bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 ease-out origin-center ${mobileOpen ? "rotate-45 translate-y-[3px]" : ""}`} />
-          <span className={`block w-5 h-0.5 bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 ease-out origin-center mt-1.5 ${mobileOpen ? "-rotate-45 -translate-y-[3px]" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-foreground transition-transform duration-200 ease-standard ${mobileOpen ? "rotate-45 translate-y-1" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-foreground mt-1.5 transition-transform duration-200 ease-standard ${mobileOpen ? "-rotate-45 -translate-y-1" : ""}`} />
         </button>
       </div>
 
-      {/* Mobile dropdown */}
+      <motion.div
+        className="absolute left-0 right-0 bottom-[-1px] h-0.5 bg-primary origin-left"
+        style={{ scaleX: scrollYProgress }}
+        aria-hidden="true"
+      />
+
+      {/* Mobile dropdown. inert keeps closed links out of the tab order. */}
       <div
-        className={`md:hidden grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
-          mobileOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        } bg-white/98 dark:bg-black/95 backdrop-blur-xl border-t border-zinc-200/60 dark:border-zinc-800/60`}
+        id="mobile-menu"
+        inert={!mobileOpen}
+        className={`md:hidden grid bg-background transition-[grid-template-rows,opacity] duration-200 ease-standard ${
+          mobileOpen ? "grid-rows-[1fr] opacity-100 border-t" : "grid-rows-[0fr] opacity-0"
+        }`}
       >
         <div className="overflow-hidden">
-          <div className="px-6 py-6 flex flex-col gap-1">
+          <div className="px-[var(--gutter)] py-3 flex flex-col">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={handleNavClick}
-                className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-3 px-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
+                className="link-quiet flex items-center min-h-11 -mx-2 px-2 rounded-md hover:bg-secondary"
               >
                 {link.label}
               </a>
@@ -112,12 +114,19 @@ export function FloatingNav() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleNavClick}
-              className="text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-3 px-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/30 flex items-center gap-2"
+              className="link-quiet flex items-center gap-1.5 min-h-11 -mx-2 px-2 rounded-md hover:bg-secondary"
             >
               Design Picker
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3" />
-              </svg>
+              {externalIcon}
+            </a>
+            <a
+              href="https://app.noteware.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleNavClick}
+              className="btn btn-primary mt-2"
+            >
+              Client login
             </a>
           </div>
         </div>

@@ -1,81 +1,122 @@
 "use client";
 
-import { SparklesCore } from "./ui/SparklesCore";
-import { TextGenerateEffect } from "./ui/TextGenerateEffect";
-import { Spotlight } from "./ui/Spotlight";
-import { LinesGradientShader } from "./ui/LinesGradientShader";
+import { useCallback, useRef, useState } from "react";
+import { motion, MotionConfig, useScroll, useTransform } from "framer-motion";
+import { HeroField } from "./HeroField";
+import { usePrefersReducedMotion } from "./useMotionPreference";
+
+const HUES = [245, 220, 245, 195];
+const cells = Array.from({ length: 120 }, (_, i) => {
+  const step = (i * 37) % 120;
+  return step % 7 === 0 ? HUES[step % 4] : null;
+});
+
+const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+function Line({ children, delay }: { children: React.ReactNode; delay: number }) {
+  return (
+    <span className="block overflow-hidden pb-[0.08em] -mb-[0.08em]">
+      <motion.span
+        className="block"
+        initial={{ y: "105%" }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.9, delay, ease: EASE_OUT }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
 
 export function HeroSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const onReady = useCallback(() => setReady(true), []);
+
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [0, -160]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const reduced = usePrefersReducedMotion();
+
   return (
-    <div className="relative w-full overflow-hidden">
-      {/* === FULL-WIDTH WebGL shader background === */}
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-        <LinesGradientShader className="absolute inset-0 w-full h-full opacity-40 dark:opacity-70" />
-        {/* Bottom fade into page */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-zinc-50 dark:to-black" style={{ top: "55%" }} />
-      </div>
+    <MotionConfig reducedMotion="user">
+      <div
+        ref={ref}
+        className="relative overflow-hidden border-b grid place-items-center min-h-[calc(100svh-4rem)] px-[var(--gutter)] pt-10 pb-24"
+      >
+        {!ready && (
+          <>
+            <div className="hero-dashed" aria-hidden="true" />
+            <div className="hero-grid" aria-hidden="true">
+              <div className="hero-grid-inner">
+                {cells.map((hue, i) => (
+                  <div
+                    key={i}
+                    className="hg-cell"
+                    data-on={hue ? "" : undefined}
+                    style={hue ? ({ "--h": hue } as React.CSSProperties) : undefined}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+        <HeroField paused={paused} onReady={onReady} />
+        <div className="hero-text-scrim" aria-hidden="true" />
 
-      {/* Spotlight */}
-      <Spotlight fill="#00D4AA" />
+        <motion.div className="relative text-center" style={reduced ? { opacity } : { y, opacity }}>
+          <motion.div
+            className="chip"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE_OUT }}
+          >
+            <span className="chip-dot" aria-hidden="true" />
+            Now accepting partners for Q2 2026
+          </motion.div>
 
-      {/* Sparkles */}
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
-        <SparklesCore
-          particleCount={50}
-          particleColor="#00D4AA"
-          minSize={0.3}
-          maxSize={1.4}
-        />
-      </div>
-
-      {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-6 pb-32 pt-8" style={{ zIndex: 2 }}>
-        <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-300/50 dark:border-emerald-800/50 text-[10px] font-bold uppercase tracking-widest mb-10 bg-white/90 dark:bg-zinc-950/80 backdrop-blur-md shadow-brand-sm animate-in opacity-0">
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            Now Accepting Partners for Q2 2026
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[0.9] mb-10 selection:text-white selection:bg-black">
-            <TextGenerateEffect
-              words="AI-Native"
-              className="inline"
-              duration={0.6}
-            />
-            <br />
-            <TextGenerateEffect
-              words="Product Craft."
-              className="inline text-zinc-400 dark:text-zinc-600"
-              duration={0.6}
-            />
+          <h1 className="headline mt-[22px] mb-6">
+            <Line delay={0.1}>AI-Native</Line>
+            <Line delay={0.22}><em>Product Craft.</em></Line>
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 mb-14 leading-relaxed max-w-2xl font-medium delay-100 opacity-0 animate-in">
-            We partner with founders to build high-stakes digital products.
-            Senior-led design, robust engineering, and deep AI integration.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5, ease: EASE_OUT }}
+          >
+            <p className="sub max-w-[620px] mx-auto mb-7">
+              We partner with founders to build high-stakes digital products.
+              Senior-led design, robust engineering, and deep AI integration.
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-5 delay-200 opacity-0 animate-in">
-            <a
-              href="mailto:dev@notewaredigital.com"
-              className="px-8 py-4 sm:px-10 sm:py-5 bg-gradient-to-br from-zinc-900 to-zinc-950 dark:from-white dark:to-zinc-100 text-white dark:text-black rounded-full font-bold text-base sm:text-lg hover:scale-[1.02] active:scale-[0.98] transition-all text-center shadow-xl shadow-zinc-900/20 dark:shadow-white/10 hover:shadow-brand"
-            >
-              Start a Project
-            </a>
-            <a
-              href="https://style.noteware.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 sm:px-10 sm:py-5 border-2 border-zinc-300 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/50 rounded-full font-bold text-base sm:text-lg hover:bg-emerald-50/80 dark:hover:bg-emerald-950/30 hover:border-emerald-400/50 dark:hover:border-emerald-600/50 backdrop-blur-sm transition-all text-center shadow-lg shadow-black/5 dark:shadow-black/20"
-            >
-              Explore Styles
-            </a>
-          </div>
-        </div>
+            <div className="inline-flex flex-wrap justify-center items-center gap-2.5">
+              <a href="mailto:dev@notewaredigital.com" className="btn btn-primary">
+                Start a project
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </a>
+              <a
+                href="https://style.noteware.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost bg-background"
+              >
+                Explore styles
+              </a>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        <button
+          type="button"
+          className="hero-pause btn btn-ghost btn-sm absolute bottom-4 right-[var(--gutter)] bg-background"
+          onClick={() => setPaused(!paused)}
+          aria-label={`${paused ? "Play" : "Pause"} background animation`}
+        >
+          {paused ? "Play" : "Pause"}
+        </button>
       </div>
-    </div>
+    </MotionConfig>
   );
 }
