@@ -14,12 +14,6 @@ const navLinks = [
   { href: "/business-owners", label: "Business owners" },
 ];
 
-const externalIcon = (
-  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3" />
-  </svg>
-);
-
 export function FloatingNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { scrollYProgress } = useScroll();
@@ -50,15 +44,6 @@ export function FloatingNav() {
               {link.label}
             </Link>
           ))}
-          <a
-            href="https://style.noteware.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-quiet flex items-center gap-1.5"
-          >
-            Design Picker
-            {externalIcon}
-          </a>
         </div>
 
         <a
@@ -111,16 +96,6 @@ export function FloatingNav() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="https://style.noteware.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleNavClick}
-              className="link-quiet flex items-center gap-1.5 min-h-11 -mx-2 px-2 rounded-md hover:bg-secondary"
-            >
-              Design Picker
-              {externalIcon}
-            </a>
             <a
               href="https://app.noteware.dev"
               target="_blank"
