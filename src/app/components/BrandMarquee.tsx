@@ -1,8 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { InfiniteMovingCards } from "./ui/InfiniteMovingCards";
+
+const clients = [
+  { key: "natural-catch", src: "/clients/natural-catch.svg", name: "Natural Catch", w: 1202, h: 305 },
+  { key: "ehs", src: "/clients/ehs.svg", name: "EHS Analytical Solutions", w: 300, h: 300 },
+  { key: "iepa", src: "/clients/iepa.png", name: "Independent Energy Producers Association", w: 915, h: 267 },
+  { key: "aca", src: "/clients/aca.svg", name: "Association of California Airports", w: 300, h: 300 },
+  { key: "propfirms", src: "/clients/propfirms.png", name: "PropFirms", w: 1453, h: 397 },
+  { key: "calstrat", src: "/clients/calstrat.svg", name: "California Strategies", w: 586, h: 309, label: "California Strategies" },
+];
 
 const brands = [
   { slug: "shopify", name: "Shopify" },
@@ -19,55 +28,54 @@ const brands = [
 ];
 
 export function BrandMarquee() {
-  const [validBrands, setValidBrands] = useState(brands);
+  const [paused, setPaused] = useState(false);
 
-  useEffect(() => {
-    // Verify each SVG exists and is non-empty by attempting to fetch it
-    Promise.all(
-      brands.map(async (brand) => {
-        try {
-          const res = await fetch(`/brands/${brand.slug}.svg`, { method: "HEAD" });
-          const length = res.headers.get("content-length");
-          if (res.ok && length && parseInt(length, 10) > 0) return brand;
-          return null;
-        } catch {
-          return null;
-        }
-      })
-    ).then((results) => {
-      const valid = results.filter(Boolean) as typeof brands;
-      if (valid.length > 0) setValidBrands(valid);
-    });
-  }, []);
+  const clientItems = clients.map((client) => ({
+    key: client.key,
+    content: (
+      <div className="logo-tile">
+        <Image src={client.src} alt={client.name} width={client.w} height={client.h} unoptimized />
+        {client.label && <span aria-hidden="true">{client.label}</span>}
+      </div>
+    ),
+  }));
 
-  const items = validBrands.map((brand) => ({
+  const brandItems = brands.map((brand) => ({
     key: brand.slug,
     content: (
       <div className="flex items-center justify-center w-28 h-16 px-4">
-        <Image
-          src={`/brands/${brand.slug}.svg`}
-          alt={brand.name}
-          width={80}
-          height={32}
-          className="object-contain h-7 w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 dark:invert dark:opacity-40 dark:hover:opacity-100"
+        <span
+          role="img"
+          aria-label={brand.name}
+          className="brand-mark"
+          style={{ maskImage: `url(/brands/${brand.slug}.svg)`, WebkitMaskImage: `url(/brands/${brand.slug}.svg)` }}
         />
       </div>
     ),
   }));
 
   return (
-    <section className="relative py-16 border-b border-zinc-100 dark:border-zinc-900 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 mb-10">
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 text-center">
-          Trusted by founders at
-        </p>
+    <section className="relative py-14 sm:py-20 border-b overflow-hidden">
+      <div className="max-w-page mx-auto px-[var(--gutter)] mb-8 text-center">
+        <p className="eyebrow">Trusted by</p>
       </div>
-      <InfiniteMovingCards
-        items={items}
-        speed="slow"
-        direction="left"
-        pauseOnHover={false}
-      />
+      <InfiniteMovingCards items={clientItems} paused={paused} repeat={3} seconds={45} />
+
+      <div className="max-w-page mx-auto px-[var(--gutter)] mt-12 mb-4 text-center">
+        <p className="eyebrow">Built with</p>
+      </div>
+      <InfiniteMovingCards items={brandItems} paused={paused} reverse repeat={3} seconds={150} />
+
+      <div className="marquee-toggle mt-6 flex justify-center">
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm"
+          onClick={() => setPaused(!paused)}
+          aria-label={`${paused ? "Play" : "Pause"} logos`}
+        >
+          {paused ? "Play" : "Pause"}
+        </button>
+      </div>
     </section>
   );
 }
