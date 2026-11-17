@@ -2,10 +2,6 @@ import Link from "next/link";
 import FooterEmail from "./FooterEmail";
 import { Logo } from "./Logo";
 
-const externalIcon = (
-  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"/></svg>
-);
-
 export function SiteFooter() {
   return (
     <footer className="border-t bg-sidebar pt-12 sm:pt-14 overflow-hidden" role="contentinfo">
@@ -29,7 +25,6 @@ export function SiteFooter() {
                 <li><Link href="/#about" className="link-quiet">About</Link></li>
                 <li><Link href="/associations" className="link-quiet">For associations</Link></li>
                 <li><Link href="/business-owners" className="link-quiet">For business owners</Link></li>
-                <li><a href="https://style.noteware.dev" target="_blank" rel="noopener noreferrer" className="link-quiet flex items-center gap-1.5">Style Hub {externalIcon}</a></li>
               </ul>
             </div>
             <div className="space-y-3">

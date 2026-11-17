@@ -110,18 +110,7 @@ export function HeroSection({
                 Start a project
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
               </a>
-              {compact ? (
-                <Link href="/#portfolio" className="btn btn-ghost bg-background">See our work</Link>
-              ) : (
-                <a
-                  href="https://style.noteware.dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-ghost bg-background"
-                >
-                  Explore styles
-                </a>
-              )}
+              <Link href="/#portfolio" className="btn btn-ghost bg-background">See our work</Link>
             </div>
           </motion.div>
         </motion.div>
