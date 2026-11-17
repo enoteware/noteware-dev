@@ -25,5 +25,8 @@
     "@types/three": "^0.187.0",
     "eslint": "^9",
     "typescript": "^5"
+  },
+  "overrides": {
+    "minimatch": ">=11.0.1"
   }
 }
